@@ -1,0 +1,73 @@
+p
+{
+margin: 0;
+padding: 0;
+}
+
+.inputfile {
+    width: 0.1px;
+    height: 0.1px;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: -1;
+}
+
+.inputfile + label {
+    max-width: 80%;
+    font-size: 1.25rem;
+    /* 20px */
+    font-weight: 700;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    cursor: pointer;
+    display: inline-block;
+    overflow: hidden;
+    padding: 0.625rem 1.25rem;
+	color: white;
+    /* 10px 20px */
+}
+
+.inputfile:focus + label {
+	outline: 1px dotted #000;
+	outline: -webkit-focus-ring-color auto 5px;
+}
+
+
+
+.box {
+	background-color: #545456; /*DEFAULT_SELECTED_IMAGE_BACKGROUND*/
+	margin-top: 0.7rem;
+}
+
+
+
+
+.brd {
+    border-style: solid;
+    border-width: 2rem;
+	border-color: #545456; /*DEFAULT_SELECTED_IMAGE_BACKGROUND*/
+	background-color: #292929; /* DEFAULT_CONTROL_COLOR*/
+	text-align: justify; /* width-aligned */
+	padding: 1rem; /* text padding */
+	line-height: 1.2rem;
+	visibility: hidden;
+	font-family: "Arial";
+}
+
+.debug {
+ color: #999999; /*DEFAULT_LABEL_ACTIVE_FOREGROUND*/
+}
+.info {
+ color: #ffffff; /*DEFAULT_WHITE_COLOR "#ffffff*/
+}
+.warning {
+ color: #ffffff; /*DEFAULT_WHITE_COLOR "#ffffff*/
+}
+.critical {
+ color: #D10B0B; /*DEFAULT_DESTRUCTIVE_COLOR*/
+}
+.fatal {
+ color: #D10B0B; /*DEFAULT_DESTRUCTIVE_COLOR*/
+}
+
