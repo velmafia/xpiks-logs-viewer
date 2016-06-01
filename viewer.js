@@ -28,7 +28,7 @@ function read_and_publish(file) {
 	
 	reader.onload = function(e) {
 		var text = reader.result;
-		textDisplayArea.innerHTML = colorizer(text);
+		textDisplayArea.innerHTML = "<p>"+colorizer(text)+"</p>";
 		textDisplayArea.style.visibility = "visible";
 		label.querySelector( 'span' ).innerHTML = file.name;
 	}
@@ -60,6 +60,7 @@ function handleDragOver(evt) {
 }
 
 
+
 window.onload = function() {
 	var fileInput = document.getElementById('files');
 	var dropZone = document.getElementById('box');
@@ -67,18 +68,18 @@ window.onload = function() {
 	fileInput.addEventListener('change', handleFileSelect);
 	dropZone.addEventListener('dragover', handleDragOver, false);
 	dropZone.addEventListener('drop', handleFileSelect, false);
-	document.addEventListener("paste", function (e) {
-		var textDisplayArea = document.getElementById('textDisplayArea');
-		var pastedText = undefined;
-		if (window.clipboardData && window.clipboardData.getData) { // IE
-			pastedText = window.clipboardData.getData('Text');
-		} else if (e.clipboardData && e.clipboardData.getData) {
-			pastedText = e.clipboardData.getData('text/plain');
-		}
-		e.preventDefault();
-		textDisplayArea.innerHTML +="<br>"+colorizer(pastedText);
-		textDisplayArea.style.visibility = "visible";
-		return false;
+
+
+	$(document).on("paste", function (e) {
+        // Short pause to wait for paste to complete
+		var text = e.originalEvent.clipboardData.getData('text');
+		var tagged_text = colorizer(text);
+        setTimeout( function() {           
+			console.log(text);
+            $(".brd").append("<p>"+tagged_text+"</p>");
+			$(".brd").css({"visibility" : "visible"});
+        }, 100);
+
 	});  
 }
 
