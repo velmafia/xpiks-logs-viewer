@@ -49,13 +49,16 @@ function read_and_publish(file) {
 	}
 	f =files[0];
 	read_and_publish(f);
+	$(".upload-cont").css("border","");
   }
 
 function handleDragOver(evt) {
     evt.stopPropagation();
     evt.preventDefault();
     evt.dataTransfer.dropEffect = 'copy'; // Explicitly show this is a copy.
+	$(".upload-cont").css({"border":"thin dashed white"});
 }
+
 
 window.onload = function() {
 	var fileInput = document.getElementById('files');
@@ -64,6 +67,19 @@ window.onload = function() {
 	fileInput.addEventListener('change', handleFileSelect);
 	dropZone.addEventListener('dragover', handleDragOver, false);
 	dropZone.addEventListener('drop', handleFileSelect, false);
+	document.addEventListener("paste", function (e) {
+		var textDisplayArea = document.getElementById('textDisplayArea');
+		var pastedText = undefined;
+		if (window.clipboardData && window.clipboardData.getData) { // IE
+			pastedText = window.clipboardData.getData('Text');
+		} else if (e.clipboardData && e.clipboardData.getData) {
+			pastedText = e.clipboardData.getData('text/plain');
+		}
+		e.preventDefault();
+		textDisplayArea.innerHTML +="<br>"+colorizer(pastedText);
+		textDisplayArea.style.visibility = "visible";
+		return false;
+	});  
 }
 
 

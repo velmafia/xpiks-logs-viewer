@@ -25,7 +25,7 @@ padding: 0;
     display: inline-block;
     overflow: hidden;
     padding: 1.5rem 1.25rem;
-	color: white;
+	color: white; 
     /* 10px 20px */
 }
 
@@ -38,7 +38,7 @@ padding: 0;
 
 .box {
 	background-color: #545456; /*DEFAULT_SELECTED_IMAGE_BACKGROUND*/
-}
+	}
 
 
 .brd {
