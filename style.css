@@ -1,3 +1,7 @@
+body {
+    background-color: #dddddd;
+}
+
 .inputfile {
     opacity: 0;
     overflow: hidden;

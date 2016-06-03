@@ -84,38 +84,40 @@ function readAndPublish(file) {
     reader.readAsText(file);
 }
 
+function handleDragDrop(event) {
+    event.stopPropagation();
+    event.preventDefault();
 
-function handleFileSelect(evt) {
-    evt.stopPropagation();
-    evt.preventDefault();
-    var obj = evt.dataTransfer;
-    var files;
-    if (obj) {
-	files = obj.files; // FileList object.
+    var files = event.dataTransfer.files;
+
+    if (files && files.length > 0) {
+        var f = event.dataTransfer.files[0];
+        readAndPublish(f);
     } else {
-        var fileInput = evt.target;
-	files = fileInput.files;
+        var textDisplayArea = document.getElementById('textDisplayArea');
+        var text = event.dataTransfer.getData('text');
+        parseXpiksLogs(textDisplayArea, text);
+        textDisplayArea.style.visibility = "visible";
+        $(".brd").css({"visibility" : "visible"});
     }
 
-    var f = files[0];
-    readAndPublish(f);
-    $(".upload-cont").css("border","");
+    $('.upload-cont').css('border', '');
 }
 
 function handleDragOver(evt) {
     evt.stopPropagation();
     evt.preventDefault();
     evt.dataTransfer.dropEffect = 'copy'; // Explicitly show this is a copy.
-    $(".upload-cont").css({"border":"thin dashed white"});
+    $(".upload-cont").css({"border":"thick dashed white"});
 }
 
 window.onload = function() {
     var fileInput = document.getElementById('files');
     var dropZone = document.getElementById('box');
 
-    fileInput.addEventListener('change', handleFileSelect);
-    dropZone.addEventListener('dragover', handleDragOver, false);
-    dropZone.addEventListener('drop', handleFileSelect, false);
+    fileInput.addEventListener('change', handleDragDrop);
+    dropZone.addEventListener('dragover', handleDragOver);
+    dropZone.addEventListener('drop', handleDragDrop);
 
     $(document).on("paste", function (e) {
         // Short pause to wait for paste to complete
