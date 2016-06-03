@@ -1,12 +1,16 @@
 <!doctype html>
-<head>
-  <meta charset="utf-8">
-   <link rel="stylesheet" href="style.css">
-</head>
-<div class="box upload-cont" id = "box">
-	<center><input type="file" name="files" id="files" class="inputfile"  multiple />
-	<label id = "inputlabel" for="files"><span>Choose a file&hellip;</span></label></center>
-</div>
-<div id="textDisplayArea" class = "brd" contenteditable></div>
-<script type="text/javascript" src="viewer.js"></script>
-<script type="text/javascript" src="jquery.min.js"></script>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <div class="box upload-cont" id="box">
+            <input type="file" name="files" id="files" class="inputfile" multiple />
+	    <div class="labelstyle">Drop logs to analyze (or click)</div>
+        </div>
+        <div id="textDisplayArea" class="brd" contenteditable />
+        <script type="text/javascript" src="viewer.js"></script>
+        <script type="text/javascript" src="jquery.min.js"></script>
+    </body>
+</html>
