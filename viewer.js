@@ -119,12 +119,10 @@ window.onload = function() {
 
     $(document).on("paste", function (e) {
         // Short pause to wait for paste to complete
+        var textDisplayArea = document.getElementById('textDisplayArea');
 	var text = e.originalEvent.clipboardData.getData('text');
-	var tagged_text = colorizer(text);
-        setTimeout( function() {
-	    console.log(text);
-            $(".brd").append("<p>"+tagged_text+"</p>");
-	    $(".brd").css({"visibility" : "visible"});
-        }, 100);
+        parseXpiksLogs(textDisplayArea, text);
+        textDisplayArea.style.visibility = "visible";
+        $(".brd").css({"visibility" : "visible"});
     });
 };
