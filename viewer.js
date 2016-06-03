@@ -23,7 +23,7 @@ function shuffle(array) {
 
 function parseXpiksLogs(parent, text) {
     var lines = text.split("\n");
-    var threads_colors = ['#00897b', '#d32f2f', '#ad1457', '#7b1fa2', '#5e35b1', '#3f51b5', '#3f51b5', '#039be5', '#0097a7', '#388e3c', '#afb42b', '#fbc02d', '#8d6e63'];
+    var threads_colors = ['#00897b', '#d32f2f', '#ad1457', '#7b1fa2', '#5e35b1', '#3f51b5', '#039be5', '#0097a7', '#388e3c', '#afb42b', '#fbc02d', '#8d6e63'];
     shuffle(threads_colors);
 
     var usedThreads = {};
