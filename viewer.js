@@ -130,6 +130,14 @@ function handleDragDrop(event) {
     $('.upload-cont').css('border', '');
 }
 
+function openFileDialogHandler(event) {
+    if (event.target.files &&
+        event.target.files.length) {
+        var f = event.target.files[0];
+        readAndPublish(f);
+    }
+}
+
 function handleDragOver(evt) {
     evt.stopPropagation();
     evt.preventDefault();
@@ -141,7 +149,7 @@ window.onload = function() {
     var fileInput = document.getElementById('files');
     var dropZone = document.getElementById('box');
 
-    fileInput.addEventListener('change', handleDragDrop);
+    fileInput.addEventListener('change', openFileDialogHandler);
     dropZone.addEventListener('dragover', handleDragOver);
     dropZone.addEventListener('drop', handleDragDrop);
 
