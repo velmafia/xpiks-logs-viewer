@@ -23,19 +23,40 @@ function shuffle(array) {
 
 function parseXpiksLogs(parent, text) {
     var lines = text.split("\n");
-    var threads_colors = ['#00897b', '#d32f2f', '#ad1457', '#7b1fa2', '#5e35b1', '#3f51b5', '#039be5', '#0097a7', '#388e3c', '#afb42b', '#fbc02d', '#8d6e63'];
+    var threads_colors = ['#00897b', '#d32f2f', '#ad1457', '#7b1fa2', '#5e35b1', '#3f51b5', '#039be5', '#0097a7', '#388e3c', '#afb42b', '#fbc02d', '#8d6e63', '#f48fb1', '#4a148c', '#880e4f', '#b71c1c', '#0d47a1', '#004d40', '#006064'];
     shuffle(threads_colors);
 
     var usedThreads = {};
     var lastUsedThreads = 0;
+    var lastLogLine = '';
+    var sameLogLinesCount = 0;
+    var lastLogType = '';
 
     for (var i = 0; i < lines.length; i++) {
         var line = lines[i];
         var parts = line.split(' ');
 
-        if ((parts.length < 4) || (parts[4] !== '-')) {
+        if ((parts.length < 2) || (!strStartsWith(parts[2], 'T#'))) {
             var rawLine = document.createTextNode(line);
             parent.appendChild(rawLine);
+            continue;
+        }
+
+        var logLine = parts.slice(3).join(' ');
+        if (logLine != lastLogLine) {
+            if (sameLogLinesCount > 0) {
+                var repeatLineP = document.createElement('p');
+                repeatLineP.setAttribute('class', lastLogType + ' logitem');
+                var repeatLineText = document.createTextNode('--- Same logline was repeated ' + sameLogLinesCount + ' more time(s)');
+                repeatLineP.appendChild(repeatLineText);
+                parent.appendChild(repeatLineP);
+            }
+
+            lastLogLine = logLine;
+            lastLogType = parts[1];
+            sameLogLinesCount = 0;
+        } else {
+            sameLogLinesCount++;
             continue;
         }
 
@@ -53,7 +74,7 @@ function parseXpiksLogs(parent, text) {
         } else {
             threadColor = threads_colors[lastUsedThreads];
             usedThreads[threadID] = threadColor;
-            lastUsedThreads++;
+            lastUsedThreads = (lastUsedThreads + 1) % threads_colors.length;
         }
 
         threadIDElement.setAttribute('style', 'color: ' + threadColor);
@@ -61,7 +82,8 @@ function parseXpiksLogs(parent, text) {
         element.appendChild(threadIDElement);
 
         var logTextElement = document.createElement('span');
-        logTextElement.innerHTML = ' ' + parts.slice(3).join(' ');
+
+        logTextElement.innerHTML = ' ' + logLine;
         element.appendChild(logTextElement);
 
         parent.appendChild(element);
