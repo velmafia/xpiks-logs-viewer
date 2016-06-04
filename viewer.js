@@ -21,6 +21,14 @@ function shuffle(array) {
     return array;
 }
 
+function appendRepeatItem(parent, repeatCount, repeatType) {
+    var repeatLineP = document.createElement('p');
+    repeatLineP.setAttribute('class', repeatType + ' logitem');
+    var repeatLineText = document.createTextNode('--- Same logline was repeated ' + repeatCount + ' more time(s)');
+    repeatLineP.appendChild(repeatLineText);
+    parent.appendChild(repeatLineP);
+}
+
 function parseXpiksLogs(parent, text) {
     var lines = text.split("\n");
     var threads_colors = ['#00897b', '#d32f2f', '#ad1457', '#7b1fa2', '#5e35b1', '#3f51b5', '#039be5', '#0097a7', '#388e3c', '#afb42b', '#fbc02d', '#8d6e63', '#f48fb1', '#4a148c', '#880e4f', '#b71c1c', '#0d47a1', '#004d40', '#006064'];
@@ -45,11 +53,7 @@ function parseXpiksLogs(parent, text) {
         var logLine = parts.slice(3).join(' ');
         if (logLine != lastLogLine) {
             if (sameLogLinesCount > 0) {
-                var repeatLineP = document.createElement('p');
-                repeatLineP.setAttribute('class', lastLogType + ' logitem');
-                var repeatLineText = document.createTextNode('--- Same logline was repeated ' + sameLogLinesCount + ' more time(s)');
-                repeatLineP.appendChild(repeatLineText);
-                parent.appendChild(repeatLineP);
+                appendRepeatItem(parent, sameLogLinesCount, lastLogType);
             }
 
             lastLogLine = logLine;
