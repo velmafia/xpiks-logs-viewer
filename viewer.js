@@ -94,6 +94,12 @@ function parseXpiksLogs(parent, text) {
     }
 }
 
+function clearPreviousEntries(element) {
+    while (element.firstChild) {
+        element.removeChild(element.firstChild);
+    }
+}
+
 function readAndPublish(file) {
     var label = document.getElementById('inputlabel');
     var textDisplayArea = document.getElementById('textDisplayArea');
@@ -102,6 +108,7 @@ function readAndPublish(file) {
 
     reader.onload = function(e) {
 	var text = reader.result;
+        clearPreviousEntries(textDisplayArea);
         parseXpiksLogs(textDisplayArea, text);
 	textDisplayArea.style.visibility = "visible";
 	label.querySelector('span').innerHTML = file.name;
@@ -122,6 +129,7 @@ function handleDragDrop(event) {
     } else {
         var textDisplayArea = document.getElementById('textDisplayArea');
         var text = event.dataTransfer.getData('text');
+        clearPreviousEntries(textDisplayArea);
         parseXpiksLogs(textDisplayArea, text);
         textDisplayArea.style.visibility = "visible";
         $(".brd").css({"visibility" : "visible"});
@@ -157,6 +165,7 @@ window.onload = function() {
         // Short pause to wait for paste to complete
         var textDisplayArea = document.getElementById('textDisplayArea');
 	var text = e.originalEvent.clipboardData.getData('text');
+        clearPreviousEntries(textDisplayArea);
         parseXpiksLogs(textDisplayArea, text);
         textDisplayArea.style.visibility = "visible";
         $(".brd").css({"visibility" : "visible"});
