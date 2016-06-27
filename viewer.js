@@ -44,7 +44,7 @@ function parseXpiksLogs(parent, text) {
         var line = lines[i];
         var parts = line.split(' ');
 
-        if ((parts.length < 2) || (!strStartsWith(parts[2], 'T#'))) {
+        if ((parts.length < 3) || (!strStartsWith(parts[2], 'T#'))) {
             var rawLine = document.createTextNode(line);
             parent.appendChild(rawLine);
             continue;
