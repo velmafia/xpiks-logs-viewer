@@ -162,6 +162,8 @@ window.onload = function() {
     dropZone.addEventListener('drop', handleDragDrop);
 
     $(document).on("paste", function (e) {
+        e.preventDefault();
+        e.stopPropagation();
         // Short pause to wait for paste to complete
         var textDisplayArea = document.getElementById('textDisplayArea');
 	var text = e.originalEvent.clipboardData.getData('text');
@@ -171,3 +173,13 @@ window.onload = function() {
         $(".brd").css({"visibility" : "visible"});
     });
 };
+
+
+
+
+
+
+
+
+
+
