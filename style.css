@@ -71,13 +71,13 @@ div.labelstyle {
 }
 
 .warning {
-    color: #ffffff; /*DEFAULT_WHITE_COLOR "#ffffff*/
+    color: #f49c12; /*DEFAULT_WHITE_COLOR "#ffffff*/
 }
 
 .critical {
-    color: #D10B0B; /*DEFAULT_DESTRUCTIVE_COLOR*/
+    color: #e81313; /*DEFAULT_DESTRUCTIVE_COLOR*/
 }
 
 .fatal {
-    color: #D10B0B; /*DEFAULT_DESTRUCTIVE_COLOR*/
+    color: #e81313; /*DEFAULT_DESTRUCTIVE_COLOR*/
 }
