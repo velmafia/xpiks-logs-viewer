@@ -2,6 +2,19 @@ function strStartsWith(str, prefix) {
     return str.indexOf(prefix) === 0;
 }
 
+function rot47(x) {
+    var s=[];
+    for(var i=0;i<x.length;i++) {
+        var j=x.charCodeAt(i);
+        if ((j>=33)&&(j<=126)) {
+            s[i]=String.fromCharCode(33+((j+ 14)%94));
+        } else {
+            s[i]=String.fromCharCode(j);
+        }
+    }
+    return s.join('');
+}
+
 function shuffle(array) {
     var currentIndex = array.length, temporaryValue, randomIndex;
 
@@ -29,7 +42,7 @@ function appendRepeatItem(parent, repeatCount, repeatType) {
     parent.appendChild(repeatLineP);
 }
 
-function parseXpiksLogs(parent, text) {
+function parseXpiksLogs(parent, text, decode) {
     var lines = text.split("\n");
     var threads_colors = ['#00897b', '#d32f2f', '#ad1457', '#7b1fa2', '#5e35b1', '#3f51b5', '#039be5', '#0097a7', '#388e3c', '#afb42b', '#fbc02d', '#8d6e63', '#f48fb1', '#4a148c', '#880e4f', '#b71c1c', '#0d47a1', '#004d40', '#006064'];
     shuffle(threads_colors);
@@ -42,6 +55,7 @@ function parseXpiksLogs(parent, text) {
 
     for (var i = 0; i < lines.length; i++) {
         var line = lines[i];
+        if (decode) { line = rot47(line); }
         var parts = line.split(' ');
 
         if ((parts.length < 3) || (!strStartsWith(parts[2], 'T#'))) {
@@ -109,7 +123,8 @@ function readAndPublish(file) {
     reader.onload = function(e) {
 	var text = reader.result;
         clearPreviousEntries(textDisplayArea);
-        parseXpiksLogs(textDisplayArea, text);
+        var decode = document.getElementById("decryptCheckbox").checked;
+        parseXpiksLogs(textDisplayArea, text, decode);
 	textDisplayArea.style.visibility = "visible";
 	label.querySelector('span').innerHTML = file.name;
     };
@@ -130,7 +145,8 @@ function handleDragDrop(event) {
         var textDisplayArea = document.getElementById('textDisplayArea');
         var text = event.dataTransfer.getData('text');
         clearPreviousEntries(textDisplayArea);
-        parseXpiksLogs(textDisplayArea, text);
+        var decode = document.getElementById("decryptCheckbox").checked;
+        parseXpiksLogs(textDisplayArea, text, decode);
         textDisplayArea.style.visibility = "visible";
         $(".brd").css({"visibility" : "visible"});
     }
@@ -168,7 +184,8 @@ window.onload = function() {
         var textDisplayArea = document.getElementById('textDisplayArea');
 	var text = e.originalEvent.clipboardData.getData('text');
         clearPreviousEntries(textDisplayArea);
-        parseXpiksLogs(textDisplayArea, text);
+        var decode = document.getElementById("decryptCheckbox").checked;
+        parseXpiksLogs(textDisplayArea, text, decode);
         textDisplayArea.style.visibility = "visible";
         $(".brd").css({"visibility" : "visible"});
     });
