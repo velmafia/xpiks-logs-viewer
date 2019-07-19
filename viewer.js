@@ -183,6 +183,7 @@ function filterLogs() {
 }
 
 function resetFiltering() {
+    document.getElementById('filterText').value = '';
     var logs = document.querySelectorAll(".logitem");
     for (var i = 0; i < logs.length; i++) {
         var logItem = logs[i];
