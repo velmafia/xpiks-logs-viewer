@@ -121,12 +121,12 @@ function readAndPublish(file) {
     var reader = new FileReader();
 
     reader.onload = function(e) {
-	var text = reader.result;
+	    var text = reader.result;
         clearPreviousEntries(textDisplayArea);
         var decode = document.getElementById("decryptCheckbox").checked;
         parseXpiksLogs(textDisplayArea, text, decode);
-	textDisplayArea.style.visibility = "visible";
-	label.querySelector('span').innerHTML = file.name;
+	    textDisplayArea.style.visibility = "visible";
+	    label.querySelector('span').innerHTML = file.name;
     };
 
     reader.readAsText(file);
@@ -169,6 +169,28 @@ function handleDragOver(evt) {
     $(".upload-cont").css({"border":"thick dashed white"});
 }
 
+function filterLogs() {
+    var filterText = document.getElementById('filterText').value.trim();
+
+    var logs = document.querySelectorAll(".logitem");
+    for (var i = 0; i < logs.length; i++) {
+        var logItem = logs[i];
+        if (!logItem.innerHTML.includes(filterText)) {
+            logItem.style.visibility = 'hidden';
+            logItem.style.display = 'none';
+        }
+    }
+}
+
+function resetFiltering() {
+    var logs = document.querySelectorAll(".logitem");
+    for (var i = 0; i < logs.length; i++) {
+        var logItem = logs[i];
+        logItem.style.visibility = 'visible';
+        logItem.style.display = 'block';
+    }
+}
+
 window.onload = function() {
     var fileInput = document.getElementById('files');
     var dropZone = document.getElementById('box');
@@ -177,12 +199,22 @@ window.onload = function() {
     dropZone.addEventListener('dragover', handleDragOver);
     dropZone.addEventListener('drop', handleDragDrop);
 
+    var filterText = document.getElementById('filterText');
+
+    $(filterText).on("paste", function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var text = e.originalEvent.clipboardData.getData('text');
+        filterText.value = text;
+        filterLogs();
+    });
+
     $(document).on("paste", function (e) {
         e.preventDefault();
         e.stopPropagation();
         // Short pause to wait for paste to complete
         var textDisplayArea = document.getElementById('textDisplayArea');
-	var text = e.originalEvent.clipboardData.getData('text');
+	    var text = e.originalEvent.clipboardData.getData('text');
         clearPreviousEntries(textDisplayArea);
         var decode = document.getElementById("decryptCheckbox").checked;
         parseXpiksLogs(textDisplayArea, text, decode);

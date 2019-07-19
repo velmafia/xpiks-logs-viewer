@@ -13,6 +13,8 @@
     <div>
         <input id="decryptCheckbox" type="checkbox" name="decrypt" value=""> decrypt logs
     </div>
+    <div id="inputlabel"><span></span></div>
+    <input id="filterText" type="text" name="filter"> <input type="button" value="Filter" onclick="filterLogs()">&nbsp;<input type="button" value="Reset" onclick="resetFiltering()">
     <div id="textDisplayArea" class="brd" contenteditable />
     <script type="text/javascript" src="viewer.js"></script>
     <script type="text/javascript" src="jquery.min.js"></script>

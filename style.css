@@ -81,3 +81,7 @@ div.labelstyle {
 .fatal {
     color: #e81313; /*DEFAULT_DESTRUCTIVE_COLOR*/
 }
+
+.filteredout {
+    visibility: hidden;
+}
