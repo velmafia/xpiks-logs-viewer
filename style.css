@@ -2,10 +2,28 @@ body {
     background-color: #dddddd;
 }
 
+.controls {
+    margin: 5px 5px;
+}
+
+#inputlabel {
+    display: inline;
+}
+
 .inputfile {
     opacity: 0;
     overflow: hidden;
     z-index: -1;
+}
+
+.decrypt {
+    margin-left: 40px;
+    display: inline;
+}
+
+.filtertext {
+    margin-left: 40px;
+    display: inline;
 }
 
 .inputlabel {

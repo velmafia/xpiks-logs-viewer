@@ -126,7 +126,7 @@ function readAndPublish(file) {
         var decode = document.getElementById("decryptCheckbox").checked;
         parseXpiksLogs(textDisplayArea, text, decode);
         textDisplayArea.style.visibility = "visible";
-        label.querySelector('span').innerHTML = file.name;
+        label.querySelector('span').innerHTML = 'File: ' + file.name;
     };
 
     reader.readAsText(file);
@@ -175,7 +175,10 @@ function filterLogs() {
     var logs = document.querySelectorAll(".logitem");
     for (var i = 0; i < logs.length; i++) {
         var logItem = logs[i];
-        if (!logItem.innerHTML.includes(filterText)) {
+        if (filterText == '' || logItem.innerHTML.includes(filterText)) {
+            logItem.style.visibility = 'visible';
+            logItem.style.display = 'block';
+        } else {
             logItem.style.visibility = 'hidden';
             logItem.style.display = 'none';
         }
@@ -184,12 +187,7 @@ function filterLogs() {
 
 function resetFiltering() {
     document.getElementById('filterText').value = '';
-    var logs = document.querySelectorAll(".logitem");
-    for (var i = 0; i < logs.length; i++) {
-        var logItem = logs[i];
-        logItem.style.visibility = 'visible';
-        logItem.style.display = 'block';
-    }
+    filterLogs();
 }
 
 window.onload = function() {
