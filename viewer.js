@@ -121,12 +121,12 @@ function readAndPublish(file) {
     var reader = new FileReader();
 
     reader.onload = function(e) {
-	    var text = reader.result;
+        var text = reader.result;
         clearPreviousEntries(textDisplayArea);
         var decode = document.getElementById("decryptCheckbox").checked;
         parseXpiksLogs(textDisplayArea, text, decode);
-	    textDisplayArea.style.visibility = "visible";
-	    label.querySelector('span').innerHTML = file.name;
+        textDisplayArea.style.visibility = "visible";
+        label.querySelector('span').innerHTML = file.name;
     };
 
     reader.readAsText(file);
@@ -214,7 +214,7 @@ window.onload = function() {
         e.stopPropagation();
         // Short pause to wait for paste to complete
         var textDisplayArea = document.getElementById('textDisplayArea');
-	    var text = e.originalEvent.clipboardData.getData('text');
+        var text = e.originalEvent.clipboardData.getData('text');
         clearPreviousEntries(textDisplayArea);
         var decode = document.getElementById("decryptCheckbox").checked;
         parseXpiksLogs(textDisplayArea, text, decode);
@@ -222,13 +222,4 @@ window.onload = function() {
         $(".brd").css({"visibility" : "visible"});
     });
 };
-
-
-
-
-
-
-
-
-
 
