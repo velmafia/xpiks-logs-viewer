@@ -207,6 +207,11 @@ function loadLogFromJsFile() {
         parseXpiksLogs(textDisplayArea, text, decode);
         textDisplayArea.style.visibility = "visible";
         $(".brd").css({"visibility" : "visible"});
+
+        $(".debug, .info").css({
+            "visibility" : "hidden",
+            "display" : "none"
+        } );
     }
 }
 
