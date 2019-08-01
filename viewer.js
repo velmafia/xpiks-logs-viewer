@@ -5,7 +5,7 @@ function strStartsWith(str, prefix) {
 function loadScript(url, callback) {
     var script = document.createElement("script");
     script.type = 'text/javascript';
-    script.src = "debug-logs.js";
+    script.src = url;
     script.onload = callback
     document.head.appendChild(script);
 }
@@ -209,9 +209,15 @@ function loadLogFromJsFile() {
     }
 }
 
+function parseUrlParams() {
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.has('js_log_file')) {
+        loadScript(urlParams.get('js_log_file'), loadLogFromJsFile);
+    }
+}
 
 window.onload = function() {
-    loadScript('debug-logs.js', loadLogFromJsFile);
+    parseUrlParams();
 
     var fileInput = document.getElementById('files');
     var dropZone = document.getElementById('box');
