@@ -209,15 +209,16 @@ function loadLogFromJsFile() {
     }
 }
 
-function parseUrlParams() {
-    const urlParams = new URLSearchParams(window.location.search);
-    if (urlParams.has('js_log_file')) {
-        loadScript(urlParams.get('js_log_file'), loadLogFromJsFile);
-    }
-}
+//function parseUrlParams() {
+//    const urlParams = new URLSearchParams(window.location.search);
+//    if (urlParams.has('js_log_file')) {
+//        loadScript(urlParams.get('js_log_file'), loadLogFromJsFile);
+//    }
+//}
 
 window.onload = function() {
-    parseUrlParams();
+//    parseUrlParams();
+    loadScript('debug-logs.js', loadLogFromJsFile);
 
     var fileInput = document.getElementById('files');
     var dropZone = document.getElementById('box');
